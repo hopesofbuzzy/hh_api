@@ -23,7 +23,7 @@ def index(request):
 
     vacancies_count = vacancies.count()
     # Создаём пагинатор: 10 вакансий на страницу (константа)
-    paginator = Paginator(vacancies, 10)
+    paginator = Paginator(vacancies, ELEMENTS_ON_PAGES)
 
     try:
         vacancies = paginator.page(page_number)
