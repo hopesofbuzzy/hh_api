@@ -5,16 +5,18 @@ import sqlite3
 headers = {
     "User-agent": "MyHHParser/1.0 (nurbaevdaniar0@yandex.ru)"
 }
+PER_PAGE = 100
+PAGES = 10
 
 
 def parse_hh_ru():
     """Парсим hh-ru."""
     vacancies = []
-    for page in range(0, 1):
+    for page in range(0, PAGES):
         params = {
             "text": "",
             "page": page,
-            "per_page": 10,
+            "per_page": PER_PAGE,
         }
         response = requests.get(
             "https://api.hh.ru/vacancies",
@@ -53,6 +55,7 @@ def formdb(vacancies):
             )
             vac = response.json()
             description = vac["description"] if "description" in vac.keys() else ""
+            print(description)
 
             # Проверяем зарплату
             if v["salary"] is None:
